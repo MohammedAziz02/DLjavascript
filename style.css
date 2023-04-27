@@ -184,4 +184,12 @@ button {
     margin: 10px;
     border-radius: 20%;
 }
+
+.input-added{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  width:100%;
+}
   
