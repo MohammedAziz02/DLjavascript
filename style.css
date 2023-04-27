@@ -169,7 +169,7 @@ button {
 
 
 
-  #adderror{
+  .adderror{
     background-color: #ddd;
     color: rgb(188, 4, 4);
     margin-left: 280px;
@@ -192,4 +192,4 @@ button {
   margin: 0px;
   width:100%;
 }
-  
+

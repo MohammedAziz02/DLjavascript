@@ -5,40 +5,55 @@
     <title>Inscription étudiant</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <button onclick="test()"> test</button>
     <h1>Formulaire d'inscription étudiant</h1>
     <form id="formEtudiant">
         <div class="form-field">
             <label for="nom">Nom :</label>
             <input type="text" id="nom" name="nom">
+            <!-- <span class="adderror"></span> -->
         </div>
 
         <div class="form-field">
             <label for="prenom">Prénom :</label>
             <input type="text" id="prenom" name="prenom">
+            <!-- <span class="adderror"></span> -->
+        </div>
+        <div class="test">
+            <span class="adderror" id="nomerror"></span>
+            <span class="adderror" id="prenomerror"></span>
         </div>
 
         <div class="form-field">
             <label for="dateNaissance">Date de naissance :</label>
             <input type="date" id="dateNaissance" name="dateNaissance">
+           
         </div>
+        
 
         <div class="form-field">
             <label for="filiere">Filière :</label>
             <input type="text" id="filiere" name="filiere">
+          
         </div>
+
+        <span class="adderror" id="dateNaissanceerror"></span>
+          <span class="adderror" id="filiereerror"></span>
 
         <div class="form-field">
             <label for="email">E-mail :</label>
             <input class="success" type="email" id="email" name="email" autocomplete="off">
+           
         </div>
+        
 
         <div class="form-field">
             <label for="tel">Téléphone :</label>
             <input type="tel" id="tel" name="tel">
+           
         </div>
+        <span class="adderror" id="emailerror"></span>
+        <span class="adderror" id="telerror"></span>
 
         <div name="divNote" class="form-field single-line">
             <label for="note1">Note 1 :</label>
@@ -46,7 +61,7 @@
             <button type="button" id="ajouterNote">+</button>
         </div>
         <!-- pour que le message d'erreur s'affiche ici -->
-        <span id="adderror"></span>
+        <span class="adderror" id="noteerror"></span>
 
         <div id="divMoyenne" class="form-field single-line">
             <label for="moyenne">Moyenne :</label>
@@ -85,10 +100,11 @@
                 <td>[13, 16, 8]</td>
                 <td>12.3</td>
                 <td>
-                    <button class="modifier">Modifier</button> <!-- Bouton Modifier -->
-                    <button class="supprimer">Supprimer</button> <!-- Bouton Supprimer -->
+                    <button class="modifier" onclick="modifierEtudiant(this)">Modifier</button> <!-- Bouton Modifier -->
+                    <button class="supprimer" onclick="supprimerEtudiant(this)">Supprimer</button> <!-- Bouton Supprimer -->
                 </td>
             </tr>
+            
         </tbody>
     </table>
     <script src="script.js"></script>
