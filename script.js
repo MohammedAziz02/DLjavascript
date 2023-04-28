@@ -1,3 +1,4 @@
+var forupdate = null;
 // fonction pour la validation d'un email evec les expressions régulière
 function emailValide(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -62,6 +63,7 @@ function ajoutChampNote() {
       break;
     }
   }
+
   // si n'est pas valide on affiche un message d'erreur
   if (isNotValid) {
     document.getElementById("noteerror").innerText = "veuillez remplir les champs pour ajouter un nouveau champ";
@@ -241,54 +243,68 @@ function validerFormulaire(event) {
     }
     notevalue += "]";
 
-    // accéder au dernier ligne dans le tableau
-    var tableetudiant = document.querySelectorAll("#tableEtudiants tbody");
+    console.log("dans la fonction validerFormulaire "+forupdate);
 
-    // la création de la ligne avec les données de formulaire( nom, prénom, dateNaissance...)
-    var tr = document.createElement("tr");
-    var td1 = document.createElement("td");
-    td1.textContent = nom.value;
-    var td2 = document.createElement("td");
-    td2.textContent = prenom.value;
-    var td3 = document.createElement("td");
-    td3.textContent = dateNaissance.value;
-    var td4 = document.createElement("td");
-    td4.textContent = filiere.value;
-    var td5 = document.createElement("td");
-    td5.textContent = email.value;
-    var td6 = document.createElement("td");
-    td6.textContent = tel.value;
-    var td7 = document.createElement("td");
-    td7.textContent = notevalue;
-    var td8 = document.createElement("td");
-    td8.textContent = calculerMoyenne();
+    if (forupdate === null) {
 
-    // Create the button elements and set their content and attributes
-    var modifierBtn = document.createElement("button");
-    modifierBtn.textContent = "Modifier";
-    modifierBtn.setAttribute("class", "modifier");
-    var supprimerBtn = document.createElement("button");
-    supprimerBtn.textContent = "Supprimer";
-    supprimerBtn.setAttribute("class", "supprimer");
+      // accéder au dernier ligne dans le tableau
+      var tableetudiant = document.querySelectorAll("#tableEtudiants tbody");
 
-    // Create the table data element for the buttons and append the buttons to it
-    var td9 = document.createElement("td");
-    td9.appendChild(modifierBtn);
-    td9.appendChild(supprimerBtn);
+      // la création de la ligne avec les données de formulaire( nom, prénom, dateNaissance...)
+      var tr = document.createElement("tr");
+      var td1 = document.createElement("td");
+      td1.textContent = nom.value;
+      var td2 = document.createElement("td");
+      td2.textContent = prenom.value;
+      var td3 = document.createElement("td");
+      td3.textContent = dateNaissance.value;
+      var td4 = document.createElement("td");
+      td4.textContent = filiere.value;
+      var td5 = document.createElement("td");
+      td5.textContent = email.value;
+      var td6 = document.createElement("td");
+      td6.textContent = tel.value;
+      var td7 = document.createElement("td");
+      td7.textContent = notevalue;
+      var td8 = document.createElement("td");
+      td8.textContent = calculerMoyenne();
 
-    // Append all the table data elements to the table row
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-    tr.appendChild(td5);
-    tr.appendChild(td6);
-    tr.appendChild(td7);
-    tr.appendChild(td8);
-    tr.appendChild(td9);
-    tableetudiant[tableetudiant.length - 1].insertAdjacentElement("beforeend", tr);
+      // Create the button elements and set their content and attributes
+      var modifierBtn = document.createElement("button");
+      modifierBtn.textContent = "Modifier";
+      modifierBtn.setAttribute("class", "modifier");
+      var supprimerBtn = document.createElement("button");
+      supprimerBtn.textContent = "Supprimer";
+      supprimerBtn.setAttribute("class", "supprimer");
+
+      // Create the table data element for the buttons and append the buttons to it
+      var td9 = document.createElement("td");
+      td9.appendChild(modifierBtn);
+      td9.appendChild(supprimerBtn);
+
+      // Append all the table data elements to the table row
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      tr.appendChild(td3);
+      tr.appendChild(td4);
+      tr.appendChild(td5);
+      tr.appendChild(td6);
+      tr.appendChild(td7);
+      tr.appendChild(td8);
+      tr.appendChild(td9);
+      tableetudiant[tableetudiant.length - 1].insertAdjacentElement("beforeend", tr);
+    } else {
+        forupdate.children[0].textContent= document.getElementById("nom").value;
+        forupdate.children[1].textContent= document.getElementById("prenom").value;
+        forupdate.children[2].textContent= document.getElementById("dateNaissance").value;
+        forupdate.children[3].textContent=  document.getElementById("filiere").value;
+        forupdate.children[4].textContent=  document.getElementById("email").value;
+        forupdate.children[5].textContent= document.getElementById("tel").value;
+        // forupdate.children[6].textContent= document.getElementById("dateNaissance").value;
+        forupdate.children[7].textContent= document.getElementById("moyenne").value;
+    }
   }
-  
+
 }
 
 // Écouteur d'événement sur la soumission du formulaire
@@ -297,16 +313,16 @@ document.getElementById("formEtudiant").addEventListener("submit", validerFormul
 
 // fonction pour la modification d'un étudiant
 function modifierEtudiant(btn) {
-  let parentbtn_tr = btn.parentElement.parentElement;
-  document.getElementById("nom").value = parentbtn_tr.children[0].textContent;
-  document.getElementById("prenom").value = parentbtn_tr.children[1].textContent;
-  document.getElementById("dateNaissance").value = parentbtn_tr.children[2].textContent;
-  document.getElementById("filiere").value = parentbtn_tr.children[3].textContent;
-  document.getElementById("email").value = parentbtn_tr.children[4].textContent;
-  document.getElementById("tel").value = parentbtn_tr.children[5].textContent;
-  // document.getElementById("note[]").value=parentbtn_tr.children[6];
-  document.getElementById("moyenne").value = parentbtn_tr.children[7].textContent;
-
+  forupdate = btn.parentElement.parentElement;
+  document.getElementById("nom").value = forupdate.children[0].textContent;
+  document.getElementById("prenom").value = forupdate.children[1].textContent;
+  document.getElementById("dateNaissance").value = forupdate.children[2].textContent;
+  document.getElementById("filiere").value = forupdate.children[3].textContent;
+  document.getElementById("email").value = forupdate.children[4].textContent;
+  document.getElementById("tel").value = forupdate.children[5].textContent;
+  // document.getElementById("note[]").value=forupdate.children[6];
+  document.getElementById("moyenne").value = forupdate.children[7].textContent;
+  console.log("dans la fonction modifierEtudiant "+forupdate);
 }
 
 //fonction pour la suppression d'un étudiant
