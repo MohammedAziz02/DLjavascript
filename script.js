@@ -1,3 +1,6 @@
+/*
+Dévloppé par Mohammed Aziz : 28/04/2023 à 10:13 
+*/
 // fonction pour la validation d'un email evec les expressions régulière
 function emailValide(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,6 +26,7 @@ if (telValide(tel1)) {
 } else {
   console.log("Le numéro de téléphone n'est pas valide");
 }
+
 
 
 // cette variable va nous aide pour savoir est ce que l'utilisateur veux modifier ou ajouter un étudiant
@@ -261,11 +265,17 @@ function verifierFormulaire(event) {
   }
 
   // Vérification du champ Téléphone
-  if (formFields.tel.value.length == 0 && !telValide(formFields.tel.value)) {
+  if (formFields.tel.value.length == 0 || !telValide(formFields.tel.value)) {
     var x = document.getElementById("telerror");
     x.innerText = "Le champ 'Téléphone' doit être un numéro de téléphone valide.";
     isallowedtoenregistr = false;
 
+  }
+
+  if(formFields.notes.length<4){
+    var x = document.getElementById("noteerror");
+    x.innerText = "veuillez ajouter plus que 4 notes pour ajouter ou modifier un étudiant";
+    isallowedtoenregistr = false;
   }
 
   // pour vérifier les champs de note[]
@@ -398,6 +408,12 @@ function modifierEtudiant(btn) {
   formFields.tel.value = forupdate.children[5].textContent;
   formFields.moyenne.value = forupdate.children[7].textContent;
   // pour la charge de notes dans inputs de notes.
+  // la logique que j'ai travaillé avec est comme suit:
+  // d'abord on est censé d'ajouter des fields input qui contient les valeurs des notes qui existe déja dans la liggne corréspondant dans la table
+  //donc on doit accéder à la cellule qui contient les notes [x,t,z,...] est faire une expression régulière pour avoir un array qui contient dans chaque case une note par ordre
+  // par défaut on a un field input donc on doit charger le premier note du tableau dans cette champs qui a comme id=note1;
+  // les reste champs on doit les créer grace à la fonction ajoutChampNote qui prend en paramètre un variable qui est dans cette cas le variable existe dans la table qu'on a obtenu avec
+  // les regex. chaque itération on crée un champ qui contient un valeur de note . et comme ça on obtient ce que on veut.
   let combiendenote = forupdate.children[6].textContent;
   const regex = /\d+/g;
   const notesinNotestd = combiendenote.match(regex);
@@ -419,11 +435,10 @@ function supprimerEtudiant(btn) {
 
 // pour l'ajout et la modification 
 // j'ai utilisé la propagation des évenements càd j'ai séléctioner le parent dans ce cas est le tableau.
-//j'ai créer un evenement click sur le parent qui doit etre propager sur leur enfants. et dans ce cas j'ai fait un condition
+//j'ai créer un evenement click sur le parent qui doit etre propager sur leusr enfants. et dans ce cas j'ai fait un condition
 // si l'enfant a une class modifier alors c'est surement la button modifier  alors j'ai appelé la function modifierEtudiant
 //si l'enfant a une class supprimer alors c'est surement la button supprimer alors j'ai appelé la button supprimerEtudiant 
 const tableEtudiants = document.querySelector('#tableEtudiants');
-// Define the event listener function
 function handleClick(event) {
   const target = event.target;
   if (target.classList.contains('modifier')) {
